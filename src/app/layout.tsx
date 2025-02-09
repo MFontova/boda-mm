@@ -6,7 +6,8 @@ import { Alumni_Sans_Pinstripe } from "next/font/google";
 import "./globals.css";
 
 const alumniSansPinstripe = Alumni_Sans_Pinstripe({
-  weight: "400"
+  weight: "400",
+  preload: false
 })
 
 export const metadata: Metadata = {
