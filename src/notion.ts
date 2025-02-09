@@ -70,7 +70,7 @@ export const addRegister = async (prevState: unknown, formData: FormData) => {
 
   await notion.pages.create({
     parent: {
-      database_id: process.env.NOTION_DATABASE!,
+      database_id: process.env.NOTION_CONFIRM_DATABASE!,
     },
     properties: {
       'Nom': {
