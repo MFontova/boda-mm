@@ -6,10 +6,19 @@ import { AtroposCard } from "@/components/AtroposCard";
 import { RemainingDays } from "@/components/Badge";
 import { Hero } from "@/components/Hero";
 import { getPage } from "@/notion";
+import { unstable_cache } from "next/cache";
+
+const fetchPage = unstable_cache(
+  async () => {
+    return await getPage('/')
+  },
+  ['homePage'],
+  {revalidate: 1, tags: ['homePage']}
+)
 
 export default async function Home() {
-  const { title } = (await getPage('/'))!
-  
+  const { title } = (await fetchPage())!
+
   return (
     <main>
       <Hero title={title} image={columnesRient}>
