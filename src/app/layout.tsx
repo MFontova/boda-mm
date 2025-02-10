@@ -10,8 +10,6 @@ const alumniSansPinstripe = Alumni_Sans_Pinstripe({
   preload: false
 })
 
-export const fetchCache = 'force-no-store'
-
 export const metadata: Metadata = {
   title: "Boda M&M",
   description: "Aquesta és la nostra boda",

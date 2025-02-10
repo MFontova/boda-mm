@@ -1,14 +1,16 @@
 "use server"
 
+import 'server-only'
 import { Client } from "@notionhq/client"
 import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints"
 import { z } from "zod"
+import React from 'react'
 
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 })
 
-export const getPage = async (slug: string) => {
+export const getPage = React.cache(async (slug: string) => {
   const response = await notion.databases.query({
     database_id: process.env.NOTION_PAGES_DATABASE!,
     filter: {
@@ -31,7 +33,7 @@ export const getPage = async (slug: string) => {
       description: page.properties.description.rich_text.length == 0 ? '' : page.properties.description.rich_text[0].plain_text
     }
   }
-}
+})
 
 export const getAllRegisters = async () => {
   const registers = await notion.databases.query({
