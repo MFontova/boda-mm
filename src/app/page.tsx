@@ -7,8 +7,11 @@ import { RemainingDays } from "@/components/Badge";
 import { Hero } from "@/components/Hero";
 import { getPage } from "@/notion";
 
+export const fetchCache = 'force-no-store'
+
 export default async function Home() {
   const { title } = (await getPage('/'))!
+
 
   return (
     <main>
