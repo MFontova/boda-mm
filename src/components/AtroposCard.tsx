@@ -12,7 +12,7 @@ interface Props {
 
 export const AtroposCard = ({title, image, href}: Props) => {
   return (
-    <Atropos className="w-full">
+    <Atropos className="w-full" duration={200} >
       <Link href={href} style={
         {
           backgroundImage: `url(${image.src})`,
