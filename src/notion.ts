@@ -4,12 +4,40 @@ import 'server-only'
 import { Client } from "@notionhq/client"
 import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints"
 import { z } from "zod"
+import { unstable_cache } from 'next/cache'
 
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 })
 
-export const getPage = async (slug: string) => {
+export const getPage = unstable_cache(
+  async (slug: string) => {
+    const response = await notion.databases.query({
+      database_id: process.env.NOTION_PAGES_DATABASE!,
+      filter: {
+        property: "page",
+        rich_text: {
+          equals: slug
+        }
+      }
+    })
+    
+    const page = response.results.find((p) => 'properties' in p) as PageObjectResponse | undefined;
+  
+    if (!page) return null;
+  
+    console.log(page)
+  
+    if(page.properties.title.type === 'rich_text' && page.properties.description.type === 'rich_text') {
+      return {
+        title: page.properties.title.rich_text[0].plain_text,
+        description: page.properties.description.rich_text.length == 0 ? '' : page.properties.description.rich_text[0].plain_text
+      }
+    }
+  }
+)
+
+export const getPagee = async (slug: string) => {
   const response = await notion.databases.query({
     database_id: process.env.NOTION_PAGES_DATABASE!,
     filter: {
