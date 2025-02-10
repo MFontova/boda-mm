@@ -34,7 +34,9 @@ export const getPage = unstable_cache(
         description: page.properties.description.rich_text.length == 0 ? '' : page.properties.description.rich_text[0].plain_text
       }
     }
-  }
+  },
+  ['page'],
+  {revalidate: 1, tags: ['page']}
 )
 
 export const getPagee = async (slug: string) => {
