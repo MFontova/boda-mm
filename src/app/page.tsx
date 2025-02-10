@@ -6,27 +6,13 @@ import { AtroposCard } from "@/components/AtroposCard";
 import { RemainingDays } from "@/components/Badge";
 import { Hero } from "@/components/Hero";
 import { getPage } from "@/notion";
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
-interface Page {
-  title: string,
-  description: string
-}
-
-export const getServerSideProps = (async () => {
-  const page: Page | null | undefined = await getPage('/')
-  return {props: {page}}
-}) satisfies GetServerSideProps<{page: Page | null | undefined}>
-
-export default function Home({
-  page,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  // const { title } = (await getPage('/'))!
-
-
+export default async function Home() {
+  const { title } = (await getPage('/'))!
+  
   return (
     <main>
-      <Hero title={page?.title || ''} image={columnesRient}>
+      <Hero title={title} image={columnesRient}>
         <p className="font-semibold">Falten</p>
         <RemainingDays/>
       </Hero>
