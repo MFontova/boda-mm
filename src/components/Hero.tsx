@@ -20,7 +20,7 @@ export const Hero = ({title, image, children, bgPositionX = '50', bgPositionY = 
           backgroundPositionX: `${bgPositionX}%`,
           backgroundPositionY: `${bgPositionY}%`
         }
-      } className="flex flex-col text-center items-center justify-center gap-4 p-5 h-96 text-white bg-center bg-cover bg-black/50 bg-blend-overlay">
+      } className="flex flex-col text-center items-center justify-center gap-4 p-5 h-96 text-white bg-center bg-cover bg-black/50 bg-blend-overlay font-semibold">
         <h1 className="text-5xl font-extrabold"> {title} </h1>
         {children}
       </div>

@@ -13,7 +13,7 @@ export default async function Home() {
   return (
     <main>
       <Hero title={title} image={columnesRient}>
-        <p className="font-semibold">Falten</p>
+        <p>Falten</p>
         <RemainingDays/>
       </Hero>
       <div className="content">

@@ -1,10 +1,10 @@
 "use server"
 
-import 'server-only'
 import { Client } from "@notionhq/client"
 import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints"
-import { z } from "zod"
 import { unstable_cache } from 'next/cache'
+import 'server-only'
+import { z } from "zod"
 
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
@@ -26,8 +26,6 @@ export const getPage = unstable_cache(
   
     if (!page) return null;
   
-    console.log(page)
-  
     if(page.properties.title.type === 'rich_text' && page.properties.description.type === 'rich_text') {
       return {
         title: page.properties.title.rich_text[0].plain_text,
@@ -38,31 +36,6 @@ export const getPage = unstable_cache(
   ['page'],
   {revalidate: 1, tags: ['page']}
 )
-
-export const getPagee = async (slug: string) => {
-  const response = await notion.databases.query({
-    database_id: process.env.NOTION_PAGES_DATABASE!,
-    filter: {
-      property: "page",
-      rich_text: {
-        equals: slug
-      }
-    }
-  })
-  
-  const page = response.results.find((p) => 'properties' in p) as PageObjectResponse | undefined;
-
-  if (!page) return null;
-
-  console.log(page)
-
-  if(page.properties.title.type === 'rich_text' && page.properties.description.type === 'rich_text') {
-    return {
-      title: page.properties.title.rich_text[0].plain_text,
-      description: page.properties.description.rich_text.length == 0 ? '' : page.properties.description.rich_text[0].plain_text
-    }
-  }
-}
 
 export const getAllRegisters = async () => {
   const registers = await notion.databases.query({
@@ -143,4 +116,39 @@ export const addRegister = async (prevState: unknown, formData: FormData) => {
   })
 
   return {success: true}
+}
+
+export const getTimming = async () => {
+  const timming = await notion.databases.query({
+    database_id: process.env.NOTION_TIMMING_DATABASE!,
+  })
+
+  const results = (timming.results as PageObjectResponse[])
+
+  return results.map(r => {
+    if(r.properties.time.type === 'rich_text' && r.properties.title.type === 'title') {
+      return {
+        time: r.properties.time.rich_text[0].plain_text,
+        title: r.properties.title.title[0].plain_text
+      }
+    }
+  })
+}
+
+export const getPresents = async () => {
+  const presents = await notion.databases.query({
+    database_id: process.env.NOTION_PRESENTS_DATABASE!,
+  })
+
+  const results = (presents.results as PageObjectResponse[])
+
+  return results.map(r => {
+    if(r.properties.title.type === 'title' && r.properties.description.type === 'rich_text' && r.properties.account.type === 'rich_text') {
+      return {
+        title: r.properties.title.title[0].plain_text,
+        description: r.properties.description.rich_text[0].plain_text,
+        account: r.properties.account.rich_text[0].plain_text,
+      }
+    }
+  })
 }
