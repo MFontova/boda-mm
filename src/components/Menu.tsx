@@ -34,6 +34,8 @@ export const Menu = () => {
               <MenuLink href="/where" title="El lloc" />
               <MenuLink href="/chronology" title="Cronograma" />
               <MenuLink href="/confirm" title="Confirmar assistència" />
+              <MenuLink href="/dressCode" title="Codi de vestimenta" />
+              <MenuLink href="/regal" title="Regal" />
             </div>
           </div>
         )
