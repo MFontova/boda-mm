@@ -14,7 +14,7 @@ export default async function DressCode() {
       <div className="content font-semibold text-center">
         <section className="py-10 flex flex-col">
           <p className="lg:max-w-md mx-auto">{"Pots venir vestit del color que vulguis, excepte de verd (és igual la tonalitat) i, per suposat, el blanc 😉"}</p>
-          <div className="flex justify-center gap-10 py-10">
+          <div className="flex justify-center gap-5 py-10">
             {
               greens.map(g => (
                 <div key={g} style={{backgroundColor: g}} className="h-20 w-20 rounded-md shadow-md" />
