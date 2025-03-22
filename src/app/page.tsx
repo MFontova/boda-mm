@@ -17,10 +17,13 @@ export default async function Home() {
         <RemainingDays/>
       </Hero>
       <div className="content">
-        <section className="w-full flex flex-col lg:flex-row gap-10 py-5 md:py-10">
+        <section className="w-full flex flex-col lg:grid lg:grid-cols-3 gap-10 py-5 md:py-10">
           <AtroposCard image={comdals} title="El lloc" href="/where" />
-          <AtroposCard image={cascadaPeto} title="Cronograma" href="/where" />
+          <AtroposCard image={cascadaPeto} title="Cronograma" href="/chronology" />
+          <AtroposCard image={cascadaBoira} title="Codi de vestimenta" href="/dressCode" />
+          <AtroposCard image={cascadaBoira} title="Regal" href="/regal" />
           <AtroposCard image={cascadaBoira} title="Confirmar assistència" href="/confirm" />
+          {/* <AtroposCard image={cascadaBoira} title="Confirmar assistència" href="/confirm" /> */}
         </section>
       </div>
     </main>
