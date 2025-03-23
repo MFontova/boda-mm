@@ -49,7 +49,8 @@ const registerSchema = z.object({
   name: z.string().min(2, {message: 'El nom ha de tenir dos lletres com a mínim'}),
   surname: z.string().min(2, {message: 'El cognom ha de tenir dos lletres com a mínim'}),
   email: z.string().email({message: 'El correu no és vàlid'}),
-  food: z.string()
+  food: z.string(),
+  other: z.ostring()
 })
 
 export const addRegister = async (prevState: unknown, formData: FormData) => {
@@ -70,7 +71,20 @@ export const addRegister = async (prevState: unknown, formData: FormData) => {
     }
   }
 
-  const { name, surname, email, food } = registerFormData
+  const { name, surname, email, food, other } = registerFormData
+
+  const results = await notion.databases.query({
+    database_id: process.env.NOTION_CONFIRM_DATABASE!,
+    filter: {property: 'Email', rich_text: {equals: email.toString()}}
+  })
+
+  console.log('exists', results)
+
+  const exists = results.results.length > 0
+
+  if(exists) {
+    return {success: false, duplicateEmail: true}
+  }
 
   await notion.pages.create({
     parent: {
@@ -108,6 +122,16 @@ export const addRegister = async (prevState: unknown, formData: FormData) => {
           {
             text: {
               content: food as string
+            }
+          }
+        ]
+      },
+      'Altres': {
+        type: 'rich_text',
+        rich_text: [
+          {
+            text: {
+              content: other as string || ''
             }
           }
         ]

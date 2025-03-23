@@ -1,5 +1,5 @@
+import mm027 from "@/../public/images/MM027.webp";
 import { Hero } from "@/components/Hero";
-import cascada from "@/../public/images/cascada.webp"
 import { getPage } from "@/notion";
 
 export default async function DressCode() {
@@ -8,7 +8,7 @@ export default async function DressCode() {
 
   return (
     <main>
-      <Hero image={cascada} title={title}>
+      <Hero image={mm027} title={title}>
         <p>{description}</p>
       </Hero>
       <div className="content font-semibold text-center">

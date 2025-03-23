@@ -1,5 +1,5 @@
+import mm010 from "@/../public/images/MM010.webp";
 import { Hero } from "@/components/Hero";
-import cascada from "@/../public/images/cascada.webp"
 import { getPage, getTimming } from "@/notion";
 
 interface ChronoType {
@@ -31,7 +31,7 @@ export default async function Chronology() {
   ]
   return (
     <main>
-      <Hero title={title} image={cascada}>
+      <Hero title={title} image={mm010}>
         <p>{description}</p>
       </Hero>
       <div className="content font-semibold">

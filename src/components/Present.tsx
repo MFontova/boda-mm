@@ -17,8 +17,8 @@ export const Present = ({present} : Props) => {
     setIsModalOpen(prev => !prev)
   }
   return (
-    <>
-      <button onClick={switchModal} className="px-5 py-2 border rounded-md">
+    <div className="flex-1">
+      <button onClick={switchModal} className="px-5 py-2 border rounded-md h-full w-full">
         <p>{present.title}</p>
       </button>
       {
@@ -33,6 +33,6 @@ export const Present = ({present} : Props) => {
           </section>
         )
       }
-    </>
+    </div>
   )
 }
